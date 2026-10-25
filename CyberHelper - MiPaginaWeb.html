@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)https://cyberhelper.netlify.app/ -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=ae03120f-aa45-4ac1-b325-3bda4c984d57
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+<title>CyberHelper - Ultimate Creator Edition</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: white;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bg-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(100, 150, 255, 0.3);
+  border-radius: 50%;
+  animation: float linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+}
+
+header {
+  padding: 20px 25px;
+  font-size: 32px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-bottom: 2px solid rgba(100, 150, 255, 0.2);
+  position: relative;
+  z-index: 100;
+}
+
+.headerLeft {
+  flex: 1;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00d4ff, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.creatorBadge {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: bold;
+  display: none;
+  box-shadow: 0 0 30px rgba(255, 107, 107, 0.8);
+  animation: creatorPulse 1.5s infinite;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.creatorBadge.active {
+  display: inline-block;
+}
+
+@keyframes creatorPulse {
+  0%, 100% { 
+    box-shadow: 0 0 30px rgba(255, 107, 107, 0.8), 0 0 60px rgba(255, 215, 0, 0.4);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 50px rgba(255, 107, 107, 1), 0 0 100px rgba(255, 215, 0, 0.6);
+    transform: scale(1.05);
+  }
+}
+
+.versionBtn {
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.versionBtn.active {
+  background: linear-gradient(135deg, #ffd000, #ffed4e);
+  color: #302b63;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.proBadge {
+  background: linear-gradient(135deg, #ffd000, #ffed4e);
+  color: #302b63;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  display: none;
+}
+
+.proBadge.active {
+  display: block;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  padding: 25px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid rgba(100, 150, 255, 0.3);
+  backdrop-filter: blur(10px);
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-15px) scale(1.05);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  box-shadow: 0 20px 50px rgba(100, 150, 255, 0.3);
+  border-color: rgba(100, 150, 255, 0.6);
+}
+
+.proSection {
+  display: none;
+}
+
+.proSection.active {
+  display: block;
+}
+
+.normalSection {
+  display: block;
+}
+
+.normalSection.hidden {
+  display: none;
+}
+
+.loginModal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.loginBox {
+  background: linear-gradient(135deg, #302b63, #24243e);
+  padding: 50px;
+  border-radius: 30px;
+  border: 2px solid rgba(100, 150, 255, 0.3);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.loginBox h2 {
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, #00d4ff, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 28px;
+}
+
+.loginBox input {
+  width: 100%;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 12px;
+  border: 2px solid rgba(100, 150, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 14px;
+}
+
+.loginBox button {
+  width: 100%;
+  padding: 15px;
+  margin: 15px 0;
+  background: linear-gradient(135deg, #ffd000, #ffed4e);
+  color: #302b63;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.loginBox button.secondary {
+  background: rgba(100, 150, 255, 0.5);
+  color: white;
+}
+
+.loginBox button.tertiary {
+  background: linear-gradient(135deg, #7c3aed, #00d4ff);
+  color: white;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.modalContent {
+  background: linear-gradient(135deg, #302b63, #24243e);
+  padding: 40px;
+  border-radius: 30px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border: 2px solid rgba(100, 150, 255, 0.3);
+  margin: 20px auto;
+}
+
+.modalContent h2 {
+  margin-bottom: 25px;
+  font-size: 32px;
+  background: linear-gradient(135deg, #00d4ff, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcomeContent {
+  background: linear-gradient(135deg, #302b63, #24243e);
+  padding: 50px;
+  border-radius: 30px;
+  border: 2px solid rgba(100, 150, 255, 0.3);
+  max-width: 700px;
+  width: 90%;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2100;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.welcomeContent h1 {
+  font-size: 36px;
+  color: #ffd000;
+  margin-bottom: 20px;
+}
+
+.welcomeContent h3 {
+  color: #00d4ff;
+  margin: 20px 0 15px 0;
+}
+
+.welcomeContent p {
+  line-height: 1.6;
+  margin: 10px 0;
+  color: #e0e0e0;
+}
+
+.featureList {
+  text-align: left;
+  background: rgba(100, 150, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px 0;
+}
+
+.featureList li {
+  margin: 12px 0;
+  list-style: none;
+  padding-left: 30px;
+  position: relative;
+}
+
+.featureList li:before {
+  content: "✨";
+  position: absolute;
+  left: 0;
+}
+
+.welcomeButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.welcomeButtons button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.welcomeButtons button.primary {
+  background: linear-gradient(135deg, #ffd000, #ffed4e);
+  color: #302b63;
+}
+
+.welcomeButtons button.secondary {
+  background: linear-gradient(135deg, #7c3aed, #00d4ff);
+  color: white;
+}
+
+.welcomeButtons button.tertiary {
+  background: rgba(100, 150, 255, 0.5);
+  color: white;
+}
+
+input, textarea, button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 12px;
+  border: 2px solid rgba(100, 150, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+button {
+  background: linear-gradient(135deg, #ffd000, #ffed4e);
+  color: #302b63;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+}
+
+.resultBox {
+  background: rgba(100, 150, 255, 0.08);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+  border-left: 4px solid #00d4ff;
+}
+
+.closeBtn {
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.8), rgba(255, 87, 34, 0.6));
+  color: white;
+  margin-top: 20px;
+}
+
+.calcDisplay {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 12px;
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-align: right;
+  border: 2px solid rgba(100, 150, 255, 0.5);
+  font-weight: 600;
+}
+
+.calcGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.calcBtn {
+  padding: 20px !important;
+  font-size: 16px !important;
+  margin: 0 !important;
+  background: rgba(100, 150, 255, 0.3) !important;
+  border: 2px solid rgba(100, 150, 255, 0.5) !important;
+  color: white !important;
+  border-radius: 12px !important;
+}
+
+.calcBtn.equal {
+  background: linear-gradient(135deg, #ffd000, #ffed4e) !important;
+  color: #302b63 !important;
+  grid-column: span 2;
+}
+
+.calcBtn.clear {
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.8), rgba(255, 87, 34, 0.6)) !important;
+  grid-column: span 2;
+  color: white !important;
+}
+
+.chatBox {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 15px 0;
+  min-height: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 2px solid rgba(100, 150, 255, 0.2);
+}
+
+.chatMessage {
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.userMsg {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+  color: #ffed4e;
+  text-align: right;
+}
+
+.aiMsg {
+  background: linear-gradient(135deg, rgba(100, 150, 255, 0.2), rgba(100, 150, 255, 0.1));
+  color: #a8d5ff;
+}
+
+#snakeCanvas {
+  background: linear-gradient(135deg, #1a5f3f, #2d8a4d);
+  border: 3px solid #00ff00;
+  display: block;
+  margin: 20px auto;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+}
+
+#tetrisCanvas {
+  background: linear-gradient(135deg, #1a3a5f, #2d5a8a);
+  border: 3px solid #00d4ff;
+  display: block;
+  margin: 20px auto;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+}
+
+.notesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.note {
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  padding: 15px;
+  border-radius: 12px;
+  color: white;
+  word-wrap: break-word;
+}
+
+.pomodoroTimer {
+  text-align: center;
+  font-size: 64px;
+  font-weight: bold;
+  color: #ffd000;
+  margin: 30px 0;
+}
+
+.pomodoroControls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pomodoroControls button {
+  width: auto;
+  padding: 10px 20px;
+}
+
+.flashcard {
+  background: linear-gradient(135deg, rgba(100, 150, 255, 0.2), rgba(100, 150, 255, 0.1));
+  border: 2px solid rgba(100, 150, 255, 0.5);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 20px 0;
+  cursor: pointer;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.flashcard:hover {
+  transform: scale(1.05);
+}
+
+.gameOverModal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #302b63, #24243e);
+  padding: 40px;
+  border-radius: 30px;
+  border: 2px solid #ff6b6b;
+  z-index: 2000;
+  text-align: center;
+  box-shadow: 0 0 50px rgba(255, 107, 107, 0.5);
+}
+
+.gameOverModal h2 {
+  color: #ff6b6b;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.gameOverModal p {
+  color: #ffd000;
+  font-size: 24px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.gameOverModal button {
+  padding: 12px 30px;
+  margin: 10px;
+  font-size: 16px;
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .welcomeContent {
+    width: 95%;
+    padding: 30px;
+  }
+  
+  .welcomeContent h1 {
+    font-size: 24px;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- PANTALLA DE BIENVENIDA PARA NUEVOS USUARIOS -->
+<div id="welcomeScreen" style="display: none; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); justify-content: center; align-items: center; z-index: 2500;">
+  <div class="welcomeContent">
+    <h1>🚀 ¡Bienvenido a CyberHelper!</h1>
+    
+    <p style="font-size: 16px; margin: 20px 0;">Tu asistente inteligente para <strong>acelerar tu productividad</strong> en estudio y trabajo</p>
+    
+    <h3>¿Qué es CyberHelper?</h3>
+    <p>Una plataforma diseñada para ayudarte a trabajar y estudiar de forma más rápida y cómoda. Con herramientas especializadas que te permiten optimizar tu tiempo y aumentar tu eficiencia.</p>
+    
+    <h3>📋 Herramientas Disponibles:</h3>
+    <ul class="featureList">
+      <li><strong>🤖 EasyAI:</strong> Tu asistente de IA para responder preguntas al instante</li>
+      <li><strong>🔎 Buscador:</strong> Busca información rápidamente en internet</li>
+      <li><strong>🧮 Calculadora:</strong> Realiza cálculos complejos sin esfuerzo</li>
+      <li><strong>🔳 QR:</strong> Genera códigos QR en segundos</li>
+      <li><strong>📝 Contador:</strong> Cuenta palabras y caracteres de tus textos</li>
+      <li><strong>🔐 Contraseñas:</strong> Genera contraseñas seguras</li>
+      <li><strong>⏳ Temporizador:</strong> Gestiona tu tiempo con precisión</li>
+    </ul>
+    
+    <h3>💎 Versión Pro Incluye:</h3>
+    <ul class="featureList">
+      <li>🐍 Juego Snake para descansar</li>
+      <li>🧱 Juego Tetris para relajarte</li>
+      <li>🍅 Pomodoro para técnica de productividad</li>
+      <li>📔 Notas para guardar ideas rápidamente</li>
+      <li>🎴 Flashcards para estudiar mejor</li>
+      <li>🎯 Modo Enfoque para concentrarte</li>
+    </ul>
+    
+    <h3>¿Cómo empezar?</h3>
+    <p>Selecciona una opción de acceso abajo para comenzar a usar CyberHelper y mejorar tu productividad ahora mismo.</p>
+    
+    <div class="welcomeButtons">
+      <button class="primary" onclick="skipWelcome(); loginAsGuest()">🆓 Acceso Gratuito</button>
+      <button class="tertiary" onclick="skipWelcome(); showProLogin()">✨ Acceso Pro</button>
+      <button class="secondary" onclick="skipWelcome(); showAdminLogin()">👑 Acceso Admin</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="loginModal" id="loginModal" style="display: none;">
+  <div class="loginBox">
+    <h2>🔐 CyberHelper</h2>
+    <input id="loginUser" type="text" placeholder="Usuario">
+    <input id="loginPass" type="password" placeholder="Contraseña">
+    <button onclick="handleLogin()">Entrar</button>
+    <button onclick="showLoginOptions()" class="secondary">← Volver</button>
+  </div>
+</div>
+
+<!-- LOGIN OPTIONS MODAL -->
+<div class="loginModal" id="loginOptionsModal" style="display: none;">
+  <div class="loginBox">
+    <h2>🔐 CyberHelper</h2>
+    <p style="margin-bottom: 30px; color: #aaa;">Selecciona tu tipo de acceso:</p>
+    <button onclick="loginAsGuest()" class="secondary">🆓 Acceso Gratuito</button>
+    <button onclick="showProLogin()" class="tertiary">✨ Acceso Pro</button>
+    <button onclick="showAdminLogin()" class="secondary">👑 Acceso Admin</button>
+    <button onclick="closeLoginOptions()" style="background: rgba(255, 87, 34, 0.7); margin-top: 20px;">Cancelar</button>
+  </div>
+</div>
+
+<!-- PRO LOGIN MODAL -->
+<div class="loginModal" id="proLoginModal" style="display: none;">
+  <div class="loginBox">
+    <h2>✨ Acceso Pro</h2>
+    <p style="margin-bottom: 20px; color: #aaa;">Acceso de 30 días</p>
+    <input id="proEmail" type="email" placeholder="Correo electrónico">
+    <div class="resultBox" style="border: none; background: rgba(255, 215, 0, 0.1); margin: 20px 0;">
+      <p style="font-weight: bold; color: #ffd000;">💰 Precio: <span style="font-size: 24px;">5€</span></p>
+      <p style="font-size: 12px; color: #aaa; margin-top: 10px;">Acceso a todas las herramientas Pro</p>
+    </div>
+    <button onclick="simulateProPayment()">💳 Pagar 5€</button>
+    <button onclick="showLoginOptions()" class="secondary">← Volver</button>
+  </div>
+</div>
+
+<div class="animated-bg">
+  <div class="bg-particles" id="bgParticles"><div class="particle" style="width: 104.767px; height: 104.767px; left: 64.1741%; animation-duration: 18.1324s; animation-delay: 2.2568s;"></div><div class="particle" style="width: 135.398px; height: 135.398px; left: 52.4486%; animation-duration: 11.1291s; animation-delay: 4.49864s;"></div><div class="particle" style="width: 76.6563px; height: 76.6563px; left: 6.23537%; animation-duration: 20.3955s; animation-delay: 2.93967s;"></div><div class="particle" style="width: 124.195px; height: 124.195px; left: 0.489344%; animation-duration: 16.8206s; animation-delay: 1.65882s;"></div><div class="particle" style="width: 75.1788px; height: 75.1788px; left: 65.0805%; animation-duration: 11.5271s; animation-delay: 0.217674s;"></div><div class="particle" style="width: 144.602px; height: 144.602px; left: 84.2244%; animation-duration: 17.9891s; animation-delay: 4.83063s;"></div><div class="particle" style="width: 82.7359px; height: 82.7359px; left: 30.603%; animation-duration: 13.8838s; animation-delay: 2.16575s;"></div><div class="particle" style="width: 144.231px; height: 144.231px; left: 22.3759%; animation-duration: 23.6759s; animation-delay: 4.86552s;"></div><div class="particle" style="width: 114.739px; height: 114.739px; left: 37.1921%; animation-duration: 12.9746s; animation-delay: 0.0812484s;"></div><div class="particle" style="width: 91.1963px; height: 91.1963px; left: 14.0063%; animation-duration: 21.6912s; animation-delay: 2.4131s;"></div><div class="particle" style="width: 81.3457px; height: 81.3457px; left: 76.7467%; animation-duration: 14.0647s; animation-delay: 0.28049s;"></div><div class="particle" style="width: 87.0165px; height: 87.0165px; left: 42.333%; animation-duration: 12.4832s; animation-delay: 0.946506s;"></div><div class="particle" style="width: 81.4928px; height: 81.4928px; left: 3.58278%; animation-duration: 12.0368s; animation-delay: 4.59128s;"></div><div class="particle" style="width: 109.938px; height: 109.938px; left: 68.3547%; animation-duration: 12.3448s; animation-delay: 3.02503s;"></div><div class="particle" style="width: 132.721px; height: 132.721px; left: 32.4749%; animation-duration: 21.4932s; animation-delay: 4.497s;"></div><div class="particle" style="width: 73.0587px; height: 73.0587px; left: 74.6185%; animation-duration: 12.2824s; animation-delay: 2.96293s;"></div><div class="particle" style="width: 56.2205px; height: 56.2205px; left: 95.3492%; animation-duration: 11.2002s; animation-delay: 1.01901s;"></div><div class="particle" style="width: 115.866px; height: 115.866px; left: 7.55014%; animation-duration: 15.824s; animation-delay: 0.0620331s;"></div><div class="particle" style="width: 80.0885px; height: 80.0885px; left: 12.418%; animation-duration: 20.3397s; animation-delay: 0.173661s;"></div><div class="particle" style="width: 144.326px; height: 144.326px; left: 92.372%; animation-duration: 11.8362s; animation-delay: 4.79788s;"></div></div>
+</div>
+
+<header>
+  <div class="headerLeft">🟣 CyberHelper</div>
+  <div class="creatorBadge" id="creatorBadge">👑 MODO CREADOR 👑</div>
+  <div>
+    <button class="versionBtn active" onclick="switchToFree()">📱 Gratis</button>
+    <button class="versionBtn" id="btnPro" onclick="switchToPro()" style="display:none;">✨ Pro</button>
+    <button class="versionBtn" id="btnStats" onclick="showStats()" style="display:none;">📊 Stats</button>
+  </div>
+  <div class="proBadge" id="proBadge">✨ PRO</div>
+</header>
+
+<!-- SECCIÓN NORMAL -->
+<div id="normalSection" class="normalSection">
+  <div class="menu">
+    <div class="card" onclick="openTool('ai')">🤖 EasyAI</div>
+    <div class="card" onclick="openTool('search')">🔎 Buscador</div>
+    <div class="card" onclick="openTool('calc')">🧮 Calculadora</div>
+    <div class="card" onclick="openTool('qr')">🔳 QR</div>
+    <div class="card" onclick="openTool('words')">📝 Contador</div>
+    <div class="card" onclick="openTool('pass')">🔐 Contraseñas</div>
+    <div class="card" onclick="openTool('timer')">⏳ Temporizador</div>
+    <div class="card" onclick="openTool('payment')">💳 Pro - 5€</div>
+  </div>
+</div>
+
+<!-- SECCIÓN PRO -->
+<div id="proSection" class="proSection"><div class="menu"><div class="card pro" onclick="openTool('ai')">🤖 EasyAI</div><div class="card pro" onclick="openTool('search')">🔎 Buscador</div><div class="card pro" onclick="openTool('calc')">🧮 Calculadora</div><div class="card pro" onclick="openTool('qr')">🔳 QR</div><div class="card pro" onclick="openTool('words')">📝 Contador</div><div class="card pro" onclick="openTool('pass')">🔐 Contraseñas</div><div class="card pro" onclick="openTool('timer')">⏳ Temporizador</div><div class="card pro" onclick="openTool('snake')">🐍 Snake</div><div class="card pro" onclick="openTool('tetris')">🧱 Tetris</div><div class="card pro" onclick="openTool('pomodoro')">🍅 Pomodoro</div><div class="card pro" onclick="openTool('notes')">📔 Notas</div><div class="card pro" onclick="openTool('flashcards')">🎴 Flashcards</div><div class="card pro" onclick="openTool('focus')">🎯 Enfoque</div></div></div>
+
+<!-- SECCIÓN ESTADÍSTICAS (SOLO CREADOR) -->
+<div id="statsSection" class="normalSection hidden">
+  <div style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+    <h1 style="text-align: center; color: #ffd000; margin-bottom: 30px; font-size: 28px;">📊 PANEL DE ESTADÍSTICAS - SOLO CREADOR</h1>
+    
+    <div style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(100, 150, 255, 0.1)); padding: 20px; border-radius: 15px; margin: 15px 0; border: 2px solid rgba(255, 215, 0, 0.3); display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div>
+        <div style="font-size: 32px; font-weight: bold; color: #ffd000; text-align: center;" id="totalVisitas">0</div>
+        <div style="font-size: 12px; color: #aaa; text-align: center;">VISITAS TOTALES</div>
+      </div>
+      <div>
+        <div style="font-size: 32px; font-weight: bold; color: #ffd000; text-align: center;" id="visitasHoy">0</div>
+        <div style="font-size: 12px; color: #aaa; text-align: center;">VISITAS HOY</div>
+      </div>
+    </div>
+
+    <button class="refreshBtn" onclick="actualizarStats()">🔄 Actualizar Datos</button>
+    <button onclick="goBack()" style="background: linear-gradient(135deg, rgba(100, 150, 255, 0.5), rgba(0, 212, 255, 0.5)); color: white; padding: 12px 30px; margin-top: 30px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; width: auto;">⬅️ Volver</button>
+  </div>
+</div>
+
+<!-- GAME OVER MODAL -->
+<div class="gameOverModal" id="gameOverModal">
+  <h2>💀 ¡GAME OVER!</h2>
+  <p id="gameOverScore">Puntuación: 0</p>
+  <button onclick="retryGame()" style="background: linear-gradient(135deg, #ffd000, #ffed4e); color: #302b63;">🔄 Reintentar</button>
+  <button onclick="closeGameOver()" style="background: rgba(255, 87, 34, 0.7); color: white;">❌ Cerrar</button>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modalContent" id="modalContent"></div>
+</div>
+
+<script>
+
+const USUARIO_CORRECTO = "SKL_Joel2012_ADMIN";
+const CONTRASENA_CORRECTA = "50055005Joel_otaku231yeaperdonakamakameha231123321";
+
+let isCreator = false;
+let isPro = false;
+let calcExpression = "";
+let snakeGameActive = false;
+let tetrisGameActive = false;
+let notes = [];
+let flashcards = [];
+let currentGame = null;
+let lastGameScore = 0;
+
+function createParticles() {
+  const container = document.getElementById('bgParticles');
+  for(let i = 0; i < 20; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.width = Math.random() * 100 + 50 + 'px';
+    particle.style.height = particle.style.width;
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+    particle.style.animationDelay = Math.random() * 5 + 's';
+    container.appendChild(particle);
+  }
+}
+
+createParticles();
+
+function skipWelcome() {
+  document.getElementById("welcomeScreen").style.display = "none";
+}
+
+function showLoginOptions() {
+  document.getElementById("loginModal").style.display = "none";
+  document.getElementById("loginOptionsModal").style.display = "flex";
+}
+
+function closeLoginOptions() {
+  document.getElementById("loginOptionsModal").style.display = "none";
+}
+
+function showAdminLogin() {
+  document.getElementById("loginOptionsModal").style.display = "none";
+  document.getElementById("loginModal").style.display = "flex";
+}
+
+function showProLogin() {
+  document.getElementById("loginOptionsModal").style.display = "none";
+  document.getElementById("proLoginModal").style.display = "flex";
+}
+
+function simulateProPayment() {
+  const email = document.getElementById("proEmail").value;
+  if(!email) {
+    alert("❌ Por favor ingresa un correo electrónico");
+    return;
+  }
+  isPro = true;
+  document.getElementById("proLoginModal").style.display = "none";
+  document.getElementById("proBadge").classList.add("active");
+  document.getElementById("btnPro").style.display = "inline-block";
+  alert("✅ ¡Pago simulado! Bienvenido a la versión Pro 🎉\n\nAcceso de 30 días activado");
+  activateProVersion();
+}
+
+function handleLogin() {
+  const user = document.getElementById("loginUser").value;
+  const pass = document.getElementById("loginPass").value;
+
+  if(user === USUARIO_CORRECTO && pass === CONTRASENA_CORRECTA) {
+    isCreator = true;
+    isPro = true;
+    document.getElementById("loginModal").style.display = "none";
+    document.getElementById("creatorBadge").classList.add("active");
+    document.getElementById("proBadge").classList.add("active");
+    document.getElementById("btnPro").style.display = "inline-block";
+    document.getElementById("btnStats").style.display = "inline-block";
+    activateProVersion();
+    alert("🌟✨ ¡BIENVENIDO CREADOR! ✨🌟\n\n👑 Tu acceso PRO está ACTIVADO\n📊 Panel de Estadísticas disponible");
+  } else {
+    alert("❌ Credenciales incorrectas");
+  }
+}
+
+function loginAsGuest() {
+  document.getElementById("loginModal").style.display = "none";
+  document.getElementById("loginOptionsModal").style.display = "none";
+}
+
+function switchToFree() {
+  document.getElementById("normalSection").classList.remove("hidden");
+  document.getElementById("proSection").classList.remove("active");
+  document.getElementById("statsSection").classList.add("hidden");
+  document.querySelectorAll(".versionBtn").forEach(btn => btn.classList.remove("active"));
+  event.target.classList.add("active");
+}
+
+function switchToPro() {
+  if(!isPro && !isCreator) {
+    alert("🔒 Solo para Pro");
+    return;
+  }
+  document.getElementById("normalSection").classList.add("hidden");
+  document.getElementById("proSection").classList.add("active");
+  document.getElementById("statsSection").classList.add("hidden");
+  document.querySelectorAll(".versionBtn").forEach(btn => btn.classList.remove("active"));
+  event.target.classList.add("active");
+}
+
+function showStats() {
+  if(!isCreator) {
+    alert("🔒 Solo el creador puede ver las estadísticas");
+    return;
+  }
+  document.getElementById("normalSection").classList.add("hidden");
+  document.getElementById("proSection").classList.remove("active");
+  document.getElementById("statsSection").classList.remove("hidden");
+  document.querySelectorAll(".versionBtn").forEach(btn => btn.classList.remove("active"));
+  event.target.classList.add("active");
+}
+
+function goBack() {
+  switchToFree();
+}
+
+function activateProVersion() {
+  document.getElementById("normalSection").classList.add("hidden");
+  document.getElementById("proSection").classList.add("active");
+}
+
+function actualizarStats() {
+  let stats = {
+    totalVisitas: Math.floor(Math.random() * 5000) + 1000,
+    visitasHoy: Math.floor(Math.random() * 200) + 50,
+  };
+
+  document.getElementById("totalVisitas").innerText = stats.totalVisitas.toLocaleString();
+  document.getElementById("visitasHoy").innerText = stats.visitasHoy;
+
+  alert("✅ Estadísticas actualizadas");
+}
+
+const modal = document.getElementById("modal");
+const modalContent = document.getElementById("modalContent");
+
+function openTool(tool) {
+  modal.style.display = "flex";
+  if(tool === "ai") aiTool();
+  else if(tool === "search") searchTool();
+  else if(tool === "calc") calcTool();
+  else if(tool === "qr") qrTool();
+  else if(tool === "words") wordTool();
+  else if(tool === "pass") passTool();
+  else if(tool === "timer") timerTool();
+  else if(tool === "payment") paymentTool();
+  else if(tool === "snake") snakeTool();
+  else if(tool === "tetris") tetrisTool();
+  else if(tool === "pomodoro") pomodoroTool();
+  else if(tool === "notes") notesTool();
+  else if(tool === "flashcards") flashcardsTool();
+  else if(tool === "focus") focusTool();
+}
+
+function closeModal() {
+  snakeGameActive = false;
+  tetrisGameActive = false;
+  modal.style.display = "none";
+}
+
+function closeGameOver() {
+  document.getElementById("gameOverModal").style.display = "none";
+}
+
+function retryGame() {
+  document.getElementById("gameOverModal").style.display = "none";
+  if(currentGame === "snake") snakeTool();
+  else if(currentGame === "tetris") tetrisTool();
+}
+
+function showGameOver(score, game) {
+  lastGameScore = score;
+  currentGame = game;
+  document.getElementById("gameOverScore").innerText = `Puntuación: ${score}`;
+  document.getElementById("gameOverModal").style.display = "block";
+}
+
+function aiTool() {
+  modalContent.innerHTML = `
+    <h2>🤖 EasyAI</h2>
+    <textarea id="aiInput" placeholder="¿Qué necesitas?"></textarea>
+    <button onclick="askAI()">Enviar</button>
+    <div class="chatBox" id="chatBox"></div>
+    <button class="closeBtn" onclick="closeModal()">Cerrar</button>
+  `;
+}
+
+function askAI() {
+  const q = document.getElementById("aiInput").value;
+  const chatBox = document.getElementById("chatBox");
+  if(!q) return;
+  chatBox.innerHTML += `<div class="chatMessage userMsg"><strong>Tú:</strong> ${q}</div>`;
+  document.getElementById("aiInput").value = "";
+  chatBox.innerHTML += `<div class="chatMessage aiMsg"><strong>IA:</strong> Interesante 🤔</div>`;
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function searchTool() {
+  modalContent.innerHTML = `
+    <h2>🔎 Buscador</h2>
+    <input id="searchInput" placeholder="Busca...">
+    <button onclick="performSearch()">Buscar</button>
+    <div class="resultBox" id="searchResults"></div>
+    <button class="closeBtn" onclick="closeModal()">Cerrar</button>
+  `;
+}
+
+function performSearch() {
+  const q = document.getElementById("searchInput").value;
+  document.getElementById("searchResults").innerHTML = `<a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" style="color:#00d4ff;">🔍 ${q}</a>`;
+}
+
+function calcTool() {
+  calcExpression = "";
+  modalContent.innerHTML = `
+    <h2>🧮 Calculadora</h2>
+    <div class="calcDisplay" id="calcDisplay">0</div>
+    <div class="calcGrid">
+      <button class="calcBtn clear" onclick="calcClear()">AC</button>
+      <button class="calcBtn" onclick="calcAppend('/')">÷</button>
+      <button class="calcBtn" onclick="calcAppend('*')">×</button>
+      <button class="calcBtn" onclick="calcAppend('-')">−</button>
+      <button class="calcBtn" onclick="calcAppend('7')">7</button>
+      <button class="calcBtn" onclick="calcAppend('8')">8</button>
+      <button class="calcBtn" onclick="calcAppend('9')">9</button>
+      <button class="calcBtn" onclick="calcAppend('+')">+</button>
+      <button class="calcBtn" onclick="calcAppend('4')">4</button>
+      <button class="calcBtn" onclick="calcAppend('5')">5</button>
+      <button class="calcBtn" onclick="calcAppend('6')">6</button>
+      <button class="calcBtn equal" onclick="calcSolve()">=</button>
+      <button class="calcBtn" onclick="calcAppend('1')">1</button>
+      <button class="calcBtn" onclick="calcAppend('2')">2</button>
+      <button class="calcBtn" onclick="calcAppend('3')">3</button>
+      <button class="calcBtn" onclick="calcAppend('0')">0</button>
+    </div>
+    <button class="closeBtn" onclick="closeModal()">Cerrar</button>
+  `;
+}
+
+function calcAppend(val) {
+  calcExpression += val;
+  document.getElementById("calcDisplay").innerText = calcExpression || "0";
+}
+
+function calcClear() {
+  calcExpression = "";
+  document.getElementById("calcDisplay").innerText = "0";
+}
+
+function calcSolve() {
+  try {
+    calcExpression = eval(calcExpression).toString();
+    document.getElementById("calcDisplay").innerText = calcExpression;
+  } catch {
+    document.getElementById("calcDisplay").innerText = "Error";
+  }
+}
+
+function qrTool() {
+  modalContent.innerHTML = `
+    <h2>🔳 QR</h2>
+    <input id="qrText" placeholder="Ingresa texto...">
+    <button onclick="generateQR()">Generar</button>
+    <div id="qrResult" style="text-align:center;margin:20px 0;"></div>
+    <button class="closeBtn" onclick="closeModal()">Cerrar</button>
+  `;
+}
+
+function generateQR() {
+  const text = document.getElementById("qrText").value;
+  if(!text) return;
+  const url = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(text)}`;
+  document.getElementById("qrResult").innerHTML = `<img src="${url}" style="border-radius:15px;border:2px solid #00d4ff;">`;
+}
+
+function wordTool() {
+  modalContent.innerHTML = `
+    <h2>📝 Palabras</h2>
+    <textarea id="wordInput" placeholder="Pega texto..."></textarea>
+    <button onclick="countWords()">Contar</button>
+    <div class="resultBox" id="wordResult"></div>
+    <button class="closeBtn" onclick="closeModal()">Cerrar</button>
+  `;
+}
+
+function countWords() {
+  const text = document.getElementById("wordInput").value;
+  const words = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+  const chars = text.length;
+  document.getElementById("wordResult").innerHTML = `📝 Palabras: <strong>${words}</strong><br>🔤 Caracteres: <strong>${chars}</strong>`;
+}
+
+function passTool() {
+  modalContent.innerHTML = `
+    <h2>🔐 Contraseña</h2>
+    <button onclick="generatePass()">Generar</button>
+    <div class="resultBox" id="passResult"></div>
+    <button class="closeBtn" onclick="closeModal()">Cerrar</button>
+  `;
+}
+
+function generatePass() {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+  let pass = "";
+  for(let i = 0; i < 16; i++) pass += chars[Math.floor(Math.random() * chars.length)];
+  document.getElementById("passResult").innerHTML = `<div style="font-family:monospace;word-break:break-all;background:rgba(0,0,0,0.5);padding:10px;">${pass}</div>`;
+}
+
+let timerInterval = null;
+
+function timerTool() {
+  modalContent.innerHTML = `
+    <h2>⏳ Timer</h2>
+    <input id="timerMin" type="number" placeholder="Minutos" value="1">
+    <button onclick="startTimer()">Iniciar</button>
+    <button onclick="stopTimer()" style="background:rgba(255,87,34,0.7);">Detener</button>
+    <div id="timerDisplay" style="font-size:48px;text-align:center;font-weight:bold;margin:20px 0;">00:00</div>
+    <button class="closeBtn" onclick="closeModal()">Cerrar</button>
+  `;
+}
+
+function startTimer() {
+  if(timerInterval) clearInterval(timerInterval);
+  let total = parseInt(document.getElementById("timerMin").value) * 60 || 60;
+  timerInterval = setInterval(() => {
+    const mins = Math.floor(total / 60);
+    const secs = total % 60;
+    document.getElementById("timerDisplay").innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    if(total <= 0) {
+      clearInterval(timerInterval);
+      alert("⏱️ ¡Tiempo terminado!");
+      return;
+    }
+    total--;
+  }, 1000);
+}
+
+function stopTimer() {
+  if(timerInterval) clearInterval(timerInterval);
+}
+
+function paymentTool() {
+  modalContent.innerHTML = `
+    <h2>💳 Pro</h2>
+    <div class="resultBox">
+      <p><strong>Precio:</strong> 5€</p>
+      <p>🐍 Snake, 🧱 Tetris, 🍅 Pomodoro, 📔 Notas, 🎴 Flashcards, 🎯 Enfoque</p>
+    </div>
+    <button onclick="showProLogin()">Pagar 5€</button>
+    <button class="closeBtn" onclick="closeModal()">Cerrar</button>
+  `;
+}
+
+// ============ SNAKE REALISTA ============
+function snakeTool() {
+  modalContent.innerHTML = `
+    <h2>🐍 Snake Clásico</h2>
+    <p style="text-align: center; color: #aaa; margin-bottom: 10px;">⬅️ ➡️ ⬆️ ⬇️ - Muévete | Espacio: Pausa</p>
+    <div style="text-align: center;">
+      <div style="color: #ffd000; font-weight: bold; margin-bottom: 10px;">Puntos: <span id="snakeScore">0</span></div>
+    </div>
+    <canvas id="snakeCanvas" width="500" height="500"></canvas>
+    <button class="closeBtn" onclick="closeModal(); snakeGameActive = false;">Cerrar</button>
+  `;
+  
+  setTimeout(initSnakeGame, 50);
+}
+
+function initSnakeGame() {
+  const canvas = document.getElementById('snakeCanvas');
+  if (!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  const gridSize = 20;
+  const tileCount = canvas.width / gridSize;
+  
+  let snake = [{ x: 10, y: 10 }];
+  let food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
+  let direction = { x: 1, y: 0 };
+  let nextDirection = { x: 1, y: 0 };
+  let score = 0;
+  let gameRunning = true;
+  
+  snakeGameActive = true;
+  
+  document.addEventListener('keydown', handleSnakeInput);
+  
+  function handleSnakeInput(e) {
+    if (!snakeGameActive) return;
+    
+    switch(e.key) {
+      case 'ArrowUp':
+      case 'w':
+      case 'W':
+        if (direction.y === 0) nextDirection = { x: 0, y: -1 };
+        break;
+      case 'ArrowDown':
+      case 's':
+      case 'S':
+        if (direction.y === 0) nextDirection = { x: 0, y: 1 };
+        break;
+      case 'ArrowLeft':
+      case 'a':
+      case 'A':
+        if (direction.x === 0) nextDirection = { x: -1, y: 0 };
+        break;
+      case 'ArrowRight':
+      case 'd':
+      case 'D':
+        if (direction.x === 0) nextDirection = { x: 1, y: 0 };
+        break;
+      case ' ':
+        gameRunning = !gameRunning;
+        break;
+    }
+  }
+  
+  function drawSnake() {
+    snake.forEach((segment, index) => {
+      if (index === 0) {
+        ctx.fillStyle = '#00ff00';
+        ctx.fillRect(segment.x * gridSize + 1, segment.y * gridSize + 1, gridSize - 2, gridSize - 2);
+        
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(segment.x * gridSize + 5, segment.y * gridSize + 5, 3, 3);
+        ctx.fillRect(segment.x * gridSize + gridSize - 8, segment.y * gridSize + 5, 3, 3);
+      } else {
+        ctx.fillStyle = `hsl(120, 100%, ${40 + index * 0.5}%)`;
+        ctx.fillRect(segment.x * gridSize + 1, segment.y * gridSize + 1, gridSize - 2, gridSize - 2);
+        
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(segment.x * gridSize + 2, segment.y * gridSize + 2, gridSize - 4, gridSize - 4);
+      }
+    });
+  }
+  
+  function drawFood() {
+    ctx.fillStyle = '#ff4444';
+    ctx.beginPath();
+    ctx.arc(food.x * gridSize + gridSize / 2, food.y * gridSize + gridSize / 2, gridSize / 2 - 2, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.fillStyle = 'rgba(255, 100, 100, 0.6)';
+    ctx.beginPath();
+    ctx.arc(food.x * gridSize + gridSize / 2 - 3, food.y * gridSize + gridSize / 2 - 3, 3, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  
+  function update() {
+    if (!snakeGameActive) return;
+    
+    if (gameRunning) {
+      direction = nextDirection;
+      let head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+      
+      if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+        snakeGameActive = false;
+        showGameOver(score, 'snake');
+        return;
+      }
+      
+      for (let segment of snake) {
+        if (head.x === segment.x && head.y === segment.y) {
+          snakeGameActive = false;
+          showGameOver(score, 'snake');
+          return;
+        }
+      }
+      
+      snake.unshift(head);
+      
+      if (head.x === food.x && head.y === food.y) {
+        score += 10;
+        document.getElementById('snakeScore').innerText = score;
+        food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
+      } else {
+        snake.pop();
+      }
+    }
+    
+    ctx.fillStyle = '#1a5f3f';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    gradient.addColorStop(0, '#1a5f3f');
+    gradient.addColorStop(1, '#2d8a4d');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.strokeStyle = 'rgba(0, 255, 0, 0.05)';
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i <= tileCount; i++) {
+      ctx.beginPath();
+      ctx.moveTo(i * gridSize, 0);
+      ctx.lineTo(i * gridSize, canvas.height);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(0, i * gridSize);
+      ctx.lineTo(canvas.width, i * gridSize);
+      ctx.stroke();
+    }
+    
+    drawFood();
+    drawSnake();
+    
+    if (snakeGameActive) {
+      setTimeout(update, 100);
+    }
+  }
+  
+  update();
+}
+
+// ============ TETRIS CLÁSICO ============
+function tetrisTool() {
+  modalContent.innerHTML = `
+    <h2>🧱 Tetris</h2>
+    <p style="text-align: center; color: #aaa; margin-bottom: 10px;">⬅️ ➡️ Mover | ⬆️ Rotar | ⬇️ Bajar</p>
+    <div style="text-align: center;">
+      <div style="color: #ffd000; font-weight: bold; margin-bottom: 10px;">Líneas: <span id="tetrisLines">0</span> | Puntos: <span id="tetrisScore">0</span></div>
+    </div>
+    <canvas id="tetrisCanvas" width="240" height="480"></canvas>
+    <button class="closeBtn" onclick="closeModal(); tetrisGameActive = false;">Cerrar</button>
+  `;
+  
+  setTimeout(initTetris, 50);
+}
+
+function initTetris() {
+  const canvas = document.getElementById('tetrisCanvas');
+  if (!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  const blockSize = 24;
+  const cols = canvas.width / blockSize;
+  const rows = canvas.height / blockSize;
+  
+  let board = Array(rows).fill(null).map(() => Array(cols).fill(0));
+  let score = 0;
+  let lines = 0;
+  let gameRunning = true;
+  tetrisGameActive = true;
+  
+  const pieces = [
+    { shape: [[1, 1], [1, 1]], color: '#ffd000' }, // Cuadrado
+    { shape: [[1], [1], [1], [1]], color: '#00d4ff' }, // I
+    { shape: [[1, 1, 1], [0, 1, 0]], color: '#ff6b6b' }, // T
+    { shape: [[1, 1, 0], [0, 1, 1]], color: '#00ff00' }, // Z
+    { shape: [[0, 1, 1], [1, 1, 0]], color: '#ff00ff' }, // S
+    { shape: [[1, 0, 0], [1, 1, 1]], color: '#ff8c00' }, // L
+    { shape: [[0, 0, 1], [1, 1, 1]], color: '#00ffff' } // J
+  ];
+  
+  let currentPiece = generatePiece();
+  let nextPiece = generatePiece();
+  
+  function generatePiece() {
+    const piece = pieces[Math.floor(Math.random() * pieces.length)];
+    return {
+      shape: piece.shape.map(row => [...row]),
+      color: piece.color,
+      x: Math.floor(cols / 2) - 1,
+      y: 0
+    };
+  }
+  
+  function canMove(piece, x, y) {
+    for (let row = 0; row < piece.shape.length; row++) {
+      for (let col = 0; col < piece.shape[row].length; col++) {
+        if (piece.shape[row][col]) {
+          const nx = x + col;
+          const ny = y + row;
+          if (nx < 0 || nx >= cols || ny >= rows || board[ny]?.[nx]) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+  
+  function placePiece(piece) {
+    for (let row = 0; row < piece.shape.length; row++) {
+      for (let col = 0; col < piece.shape[row].length; col++) {
+        if (piece.shape[row][col]) {
+          const ny = piece.y + row;
+          const nx = piece.x + col;
+          if (ny >= 0 && ny < rows && nx >= 0 && nx < cols) {
+            board[ny][nx] = piece.color;
+          }
+        }
+      }
+    }
+  }
+  
+  function clearLines() {
+    let clearedLines = 0;
+    for (let row = board.length - 1; row >= 0; row--) {
+      if (board[row].every(cell => cell !== 0)) {
+        board.splice(row, 1);
+        board.unshift(Array(cols).fill(0));
+        clearedLines++;
+        row++;
+      }
+    }
+    return clearedLines;
+  }
+  
+  document.addEventListener('keydown', (e) => {
+    if (!tetrisGameActive) return;
+    
+    switch(e.key) {
+      case 'ArrowLeft':
+        if (canMove(currentPiece, currentPiece.x - 1, currentPiece.y)) {
+          currentPiece.x--;
+        }
+        break;
+      case 'ArrowRight':
+        if (canMove(currentPiece, currentPiece.x + 1, currentPiece.y)) {
+          currentPiece.x++;
+        }
+        break;
+      case 'ArrowDown':
+        if (canMove(currentPiece, currentPiece.x, currentPiece.y + 1)) {
+          currentPiece.y++;
+          score += 1;
+        }
+        break;
+      case 'ArrowUp':
+        let rotated = currentPiece.shape[0].map((_, i) => currentPiece.shape.map(row => row[i])).reverse();
+        let tempShape = currentPiece.shape;
+        currentPiece.shape = rotated;
+        if (!canMove(currentPiece, currentPiece.x, currentPiece.y)) {
+          currentPiece.shape = tempShape;
+        }
+        break;
+    }
+  });
+  
+  function gameLoop() {
+    if (!tetrisGameActive) return;
+    
+    if (canMove(currentPiece, currentPiece.x, currentPiece.y + 1)) {
+      currentPiece.y++;
+    } else {
+      placePiece(currentPiece);
+      let clearedLines = clearLines();
+      if (clearedLines > 0) {
+        lines += clearedLines;
+        score += clearedLines * 100;
+        document.getElementById('tetrisLines').innerText = lines;
+      }
+      
+      currentPiece = nextPiece;
+      nextPiece = generatePiece();
+      
+      if (!canMove(currentPiece, currentPiece.x, currentPiece.y)) {
+        tetrisGameActive = false;
+        showGameOver(score, 'tetris');
+        return;
+      }
+    }
+    
+    // Dibujar
+    ctx.fillStyle = '#1a3a5f';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Board
+    for (let row = 0; row < board.length; row++) {
+      for (let col = 0; col < board[row].length; col++) {
+        if (board[row][col]) {
+          ctx.fillStyle = board[row][col];
+          ctx.fillRect(col * blockSize, row * blockSize, blockSize - 1, blockSize - 1);
+        }
+        ctx.strokeStyle = 'rgba(0, 212, 255, 0.2)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(col * blockSize, row * blockSize, blockSize, blockSize);
+      }
+    }
+    
+    // Pieza actual
+    for (let row = 0; row < currentPiece.shape.length; row++) {
+      for (let col = 0; col < currentPiece.shape[row].length; col++) {
+        if (currentPiece.shape[row][col]) {
+          ctx.fillStyle = currentPiece.color;
+          const x = (currentPiece.x + col) * blockSize;
+          const y = (currentPiece.y + row) * blockSize;
+          ctx.fillRect(x, y, blockSize - 1, blockSize - 1);
+        }
+      }
+    }
+    
+    document.getElementById('tetrisScore').innerText = score;
+    
+    setTimeout(gameLoop, 500);
+  }
+  
+  gameLoop();
+}
+
+// ============ POMODORO ============
+let pomodoroTime = 25 * 60;
+let pomodoroRunning = false;
+let pomodoroInterval = null;
+
+function pomodoroTool() {
+  modalContent.innerHTML = `
+    <h2>🍅 Pomodoro</h2>
+    <p style="text-align: center; color: #aaa;">Técnica Pomodoro: 25 min trabajo + 5 min descanso</p>
+    <div class="pomodoroTimer" id="pomodoroTimer">25:00</div>
+    <div class="pomodoroControls">
+      <button onclick="startPomodoro()">Iniciar</button>
+      <button onclick="pausePomodoro()" style="background:rgba(255,87,34,0.7);">Pausar</button>
+      <button onclick="resetPomodoro()">Reiniciar</button>
+    </div>
+    <button class="closeBtn" onclick="closeModal(); clearInterval(pomodoroInterval);">Cerrar</button>
+  `;
+}
+
+function startPomodoro() {
+  if(pomodoroRunning) return;
+  pomodoroRunning = true;
+  pomodoroInterval = setInterval(() => {
+    pomodoroTime--;
+    updatePomodoroDisplay();
+    if(pomodoroTime <= 0) {
+      alert('⏰ ¡Tiempo de Pomodoro completado!');
+      clearInterval(pomodoroInterval);
+      pomodoroTime = 25 * 60;
+      pomodoroRunning = false;
+      updatePomodoroDisplay();
+    }
+  }, 1000);
+}
+
+function pausePomodoro() {
+  clearInterval(pomodoroInterval);
+  pomodoroRunning = false;
+}
+
+function resetPomodoro() {
+  clearInterval(pomodoroInterval);
+  pomodoroTime = 25 * 60;
+  pomodoroRunning = false;
+  updatePomodoroDisplay();
+}
+
+function updatePomodoroDisplay() {
+  const mins = Math.floor(pomodoroTime / 60);
+  const secs = pomodoroTime % 60;
+  if(document.getElementById("pomodoroTimer")) {
+    document.getElementById("pomodoroTimer").innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  }
+}
+
+// ============ NOTAS ============
+function notesTool() {
+  modalContent.innerHTML = `
+    <h2>📔 Notas</h2>
+    <textarea id="noteInput" placeholder="Escribe tu nota..." style="min-height: 100px;"></textarea>
+    <button onclick="saveNote()">Guardar Nota</button>
+    <div class="notesContainer" id="notesContainer"></div>
+    <button class="closeBtn" onclick="closeModal()">Cerrar</button>
+  `;
+  displayNotes();
+}
+
+function saveNote() {
+  const noteText = document.getElementById("noteInput").value;
+  if(noteText.trim()) {
+    notes.push(noteText);
+    document.getElementById("noteInput").value = "";
+    displayNotes();
+  }
+}
+
+function displayNotes() {
+  const container = document.getElementById("notesContainer");
+  if (!container) return;
+  container.innerHTML = notes.map((note, i) => `
+    <div class="note">
+      ${note}
+      <br><small style="cursor:pointer;color:#ff6b6b;" onclick="deleteNote(${i})">🗑️ Eliminar</small>
+    </div>
+  `).join('');
+}
+
+function deleteNote(i) {
+  notes.splice(i, 1);
+  displayNotes();
+}
+
+// ============ FLASHCARDS ============
+function flashcardsTool() {
+  modalContent.innerHTML = `
+    <h2>🎴 Flashcards</h2>
+    <input id="questionInput" placeholder="Pregunta..." style="margin-bottom: 10px;">
+    <input id="answerInput" placeholder="Respuesta..." style="margin-bottom: 10px;">
+    <button onclick="addFlashcard()">Añadir Tarjeta</button>
+    <div id="flashcardsContainer"></div>
+    <button class="closeBtn" onclick="closeModal()">Cerrar</button>
+  `;
+  displayFlashcards();
+}
+
+function addFlashcard() {
+  const q = document.getElementById("questionInput").value;
+  const a = document.getElementById("answerInput").value;
+  if(q && a) {
+    flashcards.push({q, a, flipped: false});
+    document.getElementById("questionInput").value = "";
+    document.getElementById("answerInput").value = "";
+    displayFlashcards();
+  }
+}
+
+function displayFlashcards() {
+  const container = document.getElementById("flashcardsContainer");
+  if (!container) return;
+  container.innerHTML = flashcards.map((card, i) => `
+    <div class="flashcard" onclick="flipCard(${i})">
+      ${card.flipped ? card.a : card.q}
+    </div>
+    <small style="cursor:pointer;color:#ff6b6b;" onclick="deleteFlashcard(${i})">🗑️ Eliminar</small><br>
+  `).join('');
+}
+
+function flipCard(i) {
+  flashcards[i].flipped = !flashcards[i].flipped;
+  displayFlashcards();
+}
+
+function deleteFlashcard(i) {
+  flashcards.splice(i, 1);
+  displayFlashcards();
+}
+
+// ============ MODO ENFOQUE ============
+function focusTool() {
+  modalContent.innerHTML = `
+    <h2>🎯 Modo Enfoque</h2>
+    <p style="text-align: center; font-size: 18px; margin: 20px 0;">¡Modo Enfoque Activado! 🚀</p>
+    <p style="text-align: center;">Todas las distracciones han sido minimizadas.</p>
+    <p style="text-align: center; color: #ffd000; font-weight: bold;">Tiempo de concentración recomendado: 50 minutos</p>
+    <div class="pomodoroTimer" id="focusTimer">50:00</div>
+    <button onclick="startFocusMode()">Iniciar Focus</button>
+    <button class="closeBtn" onclick="closeModal()">Cerrar</button>
+  `;
+}
+
+function startFocusMode() {
+  let focusTime = 50 * 60;
+  const focusInterval = setInterval(() => {
+    focusTime--;
+    const mins = Math.floor(focusTime / 60);
+    const secs = focusTime % 60;
+    const focusTimerEl = document.getElementById("focusTimer");
+    if(focusTimerEl) {
+      focusTimerEl.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+    if(focusTime <= 0) {
+      clearInterval(focusInterval);
+      alert('✅ ¡Excelente sesión de enfoque completada!');
+    }
+  }, 1000);
+}
+
+</script>
+
+
+</body></html>
